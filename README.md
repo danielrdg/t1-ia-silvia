@@ -108,15 +108,6 @@ O projeto gera automaticamente 5 gráficos profissionais para relatório:
 - **Métricas**: Acurácia, Precisão, Recall, F1-Score
 - **Frontend**: Análise em tempo real + relatórios automáticos
 
-## 🏆 Pontuação Estimada
-
-- **Dataset (1,5 pts)**: ✅ Gráfico + balanceamento documentado
-- **Algoritmos (4,0 pts)**: ✅ 4 algoritmos + comparação completa
-- **Frontend (1,5 pts)**: ✅ Interface interativa + relatórios
-- **Apresentação (3,0 pts)**: 🎯 Dependente da apresentação
-
-**Total: 7,0/10,0 pontos + apresentação**
-
 ## 📚 Documentação Adicional
 
 - **[TUTORIAL_EXECUCAO.md](TUTORIAL_EXECUCAO.md)** - Guia passo a passo completo
