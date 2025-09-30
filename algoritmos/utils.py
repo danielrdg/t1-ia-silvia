@@ -9,8 +9,50 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 
 def divide_datasets(X, y):
-    X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=0.25, random_state=42)
+    """
+    Divide o dataset conforme especificado no enunciado:
+    Para cada classe de 250 amostras: 200 treino, 25 validação, 25 teste
+    """
+    import pandas as pd
+
+    # Converter para DataFrame para facilitar manipulação
+    df = pd.DataFrame(X)
+    df['class'] = y
+
+    # Listas para armazenar os conjuntos
+    train_dfs = []
+    val_dfs = []
+    test_dfs = []
+
+    # Para cada classe, dividir exatamente conforme especificado
+    for classe in df['class'].unique():
+        classe_data = df[df['class'] == classe].copy()
+
+        # Embaralhar os dados da classe
+        classe_data = classe_data.sample(frac=1, random_state=42).reset_index(drop=True)
+
+        # Dividir exatamente: 200 treino, 25 validação, 25 teste
+        train_data = classe_data.iloc[:200]
+        val_data = classe_data.iloc[200:225]
+        test_data = classe_data.iloc[225:250]
+
+        train_dfs.append(train_data)
+        val_dfs.append(val_data)
+        test_dfs.append(test_data)
+
+    # Concatenar e embaralhar os conjuntos finais
+    train_final = pd.concat(train_dfs).sample(frac=1, random_state=42).reset_index(drop=True)
+    val_final = pd.concat(val_dfs).sample(frac=1, random_state=42).reset_index(drop=True)
+    test_final = pd.concat(test_dfs).sample(frac=1, random_state=42).reset_index(drop=True)
+
+    # Separar features e target
+    X_train = train_final.drop('class', axis=1).values
+    y_train = train_final['class'].values
+    X_val = val_final.drop('class', axis=1).values
+    y_val = val_final['class'].values
+    X_test = test_final.drop('class', axis=1).values
+    y_test = test_final['class'].values
+
     return X_train, X_val, X_test, y_train, y_val, y_test
 
 def calculate_metrics(y_true, y_pred):

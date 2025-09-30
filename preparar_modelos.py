@@ -48,10 +48,9 @@ def treinar_e_salvar_modelos():
         print("Falha ao preparar dados!")
         return
 
-    # Divisão dos dados
-    X_treino, X_teste, y_treino, y_teste = train_test_split(
-        X_features, y_target, test_size=0.2, random_state=42, stratify=y_target
-    )
+    # Divisão dos dados conforme o enunciado (80/10/10 por classe)
+    from algoritmos.utils import divide_datasets
+    X_treino, X_val, X_teste, y_treino, y_val, y_teste = divide_datasets(X_features, y_target)
 
     print(f"\nTreinando modelos...")
     print(f"Treino: {len(X_treino)} amostras")
