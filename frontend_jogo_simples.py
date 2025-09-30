@@ -33,14 +33,23 @@ class JogoDaVelhaFrontend:
         print("- Posições válidas: 0,0 até 2,2")
         print("=" * 60)
 
-    def carregar_modelo_ia(self, caminho_modelo="melhor_modelo.pkl", algoritmo="SVM"):
+    def carregar_modelo_ia(self, caminho_modelo="melhor_modelo.pkl"):
         """Carrega o modelo de IA treinado"""
         try:
             if os.path.exists(caminho_modelo):
                 with open(caminho_modelo, 'rb') as file:
                     self.modelo_ia = pickle.load(file)
-                self.nome_algoritmo = algoritmo
-                print(f"Modelo {algoritmo} carregado com sucesso!")
+                
+                # Tenta carregar informações do melhor modelo
+                if os.path.exists("info_melhor_modelo.pkl"):
+                    with open("info_melhor_modelo.pkl", 'rb') as info_file:
+                        info_modelo = pickle.load(info_file)
+                        self.nome_algoritmo = info_modelo['algoritmo']
+                        print(f"Modelo {self.nome_algoritmo} carregado com sucesso!")
+                        print(f"Acurácia: {info_modelo['acuracia']:.2f}%")
+                else:
+                    self.nome_algoritmo = "Modelo Treinado"
+                    print("Modelo carregado com sucesso!")
             else:
                 print(f"Arquivo {caminho_modelo} não encontrado.")
                 print("Usando modelo simulado...")
