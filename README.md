@@ -33,6 +33,9 @@ python gerar_distribuicao.py
 # 4. Executar análise dos algoritmos (4,0 pts)
 python main.py
 
+# 5. Preparar o modelo que será usado no frontend
+python frontend_jogo_simples.py
+
 # 5. Testar frontend interativo (1,5 pts)
 python frontend_jogo_simples.py
 ```
@@ -104,15 +107,6 @@ O projeto gera automaticamente 5 gráficos profissionais para relatório:
 - **Variáveis**: Todas terminam com `_$` conforme enunciado
 - **Métricas**: Acurácia, Precisão, Recall, F1-Score
 - **Frontend**: Análise em tempo real + relatórios automáticos
-
-## 🏆 Pontuação Estimada
-
-- **Dataset (1,5 pts)**: ✅ Gráfico + balanceamento documentado
-- **Algoritmos (4,0 pts)**: ✅ 4 algoritmos + comparação completa
-- **Frontend (1,5 pts)**: ✅ Interface interativa + relatórios
-- **Apresentação (3,0 pts)**: 🎯 Dependente da apresentação
-
-**Total: 7,0/10,0 pontos + apresentação**
 
 ## 📚 Documentação Adicional
 
