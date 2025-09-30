@@ -48,23 +48,22 @@ def generate_sample_results():
     return pd.DataFrame(results)
 
 def main():
-    print("🎨 Gerador de Visualizações - T1-IA")
+    print("Gerador de Visualizações - T1-IA")
     print("=" * 40)
 
     # Gerar ou carregar resultados
-    print("📊 Obtendo resultados dos algoritmos...")
+    print("Obtendo resultados dos algoritmos...")
     results_df = generate_sample_results()
 
     # Gerar visualizações
-    print("\n🎨 Gerando visualizações...")
+    print("\nGerando visualizações...")
     image_paths = create_visualizations(results_df)
 
-    print(f"\n✅ Visualizações geradas com sucesso!")
-    print(f"📁 Arquivos disponíveis para relatório:")
-
+    print(f"\nVisualizações geradas com sucesso!")
+    print("Arquivos de imagem:")
     for i, path in enumerate(image_paths, 1):
         print(f"   {i}. {os.path.basename(path)}")
 
-    print(f"\n📂 Localização: results/graphs/")
+    print(f"\nLocalização: results/graphs/")
 if __name__ == '__main__':
     main()

@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import os
 
 def main():
-    print("📊 Gerando gráfico da distribuição do dataset...")
+    print("Gerando gráfico da distribuição do dataset...")
 
     # Criar diretório para salvar os gráficos
     os.makedirs('results/graphs', exist_ok=True)

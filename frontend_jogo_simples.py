@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-"""
-Frontend Simplificado para Jogo da Velha com IA
-PUCRS - Inteligência Artificial - T1
-Turma 30 - Professora Silvia Moraes
-"""
-
 import random
 import numpy as np
 import pandas as pd
