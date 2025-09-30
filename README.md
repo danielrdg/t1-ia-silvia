@@ -1,16 +1,144 @@
-# 🎮 T1-IA: Análise de Jogo da Velha com Inteligência Artificial
+# 🎮 T1-IA: Sistema de Inteligência Artificial para Jogo da Velha
 
-Este projeto analisa dados de finais de jogo de jogo da velha usando diferentes algoritmos de machine learning para prever se o jogador "X" ganha ou não.
+> **Trabalho T1 - Disciplina de Inteligência Artificial**  
+> **PUCRS - Faculdade de Informática**  
+> **Professora: Silvia Moraes**
 
 ## 📋 Sobre o Projeto
 
-O dataset contém 958 configurações possíveis de tabuleiro no final de jogos de jogo da velha, onde cada posição pode ser:
+Sistema completo de IA que analisa estados de jogo da velha, implementando 4 algoritmos de machine learning e interface interativa para jogos humano vs máquina.
 
-- `x`: jogada do jogador X
-- `o`: jogada do jogador O
-- `b`: posição vazia (blank)
+### 🎯 Objetivos Atendidos
 
-O objetivo é classificar se o jogador X tem uma configuração vencedora (`positive`) ou não (`negative`).
+✅ **Dataset balanceado** (máx. 250 amostras/classe)  
+✅ **4 algoritmos implementados**: KNN, SVM, MLP, Decision Tree  
+✅ **Frontend interativo** com análise em tempo real  
+✅ **Gráficos e visualizações** profissionais  
+✅ **Documentação completa** e tutoriais
+
+## 🚀 Execução Rápida
+
+```bash
+# 1. Clonar repositório
+git clone https://github.com/danielrdg/t1-ia-silvia.git
+cd t1-ia-silvia
+
+# 2. Configurar ambiente
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# 3. Gerar gráfico da distribuição (1,5 pts)
+python balanceamento_dataset.py
+python gerar_distribuicao.py
+
+# 4. Executar análise dos algoritmos (4,0 pts)
+python main.py
+
+# 5. Testar frontend interativo (1,5 pts)
+python frontend_jogo_simples.py
+```
+
+## � Resultados Obtidos
+
+| Algoritmo | Acurácia (Teste) | F1-Score |
+|-----------|------------------|----------|
+| **SVM** ⭐ | **85,0%** | **0,8505** |
+| MLP | 84,0% | 0,8406 |
+| Decision Tree | 83,0% | 0,8306 |
+| KNN | 75,0% | 0,7496 |
+
+**🏆 Melhor Modelo: Support Vector Machine (SVM)**
+
+## 📁 Estrutura do Projeto
+
+```
+t1-ia-silvia/
+├── 📊 DATASET & ANÁLISE
+│   ├── balanceamento_dataset.py     # Balanceia dataset (250/classe)
+│   ├── gerar_distribuicao.py        # Gera gráfico distribuição
+│   └── tic-tac-toe.data            # Dataset original
+│
+├── 🤖 ALGORITMOS DE IA
+│   └── algoritmos/
+│       ├── knn.py                   # K-Nearest Neighbors
+│       ├── svm.py                   # Support Vector Machine
+│       ├── mlp.py                   # Multi-Layer Perceptron
+│       ├── decision-tree.py         # Árvore de Decisão
+│       └── utils.py                 # Funções utilitárias
+│
+├── 🎮 INTERFACE INTERATIVA
+│   ├── frontend_jogo_simples.py     # Jogo humano vs máquina
+│   └── preparar_modelos.py          # Prepara modelos para frontend
+│
+├── 📈 ANÁLISE E VISUALIZAÇÃO
+│   ├── main.py                      # Análise completa (4 algoritmos)
+│   └── results/graphs/              # Gráficos gerados
+│
+└── 📖 DOCUMENTAÇÃO
+    ├── README.md                    # Este arquivo
+    ├── TUTORIAL_EXECUCAO.md         # Tutorial detalhado
+    └── requirements.txt             # Dependências
+```
+
+## 🎨 Gráficos Gerados
+
+O projeto gera automaticamente 5 gráficos profissionais para relatório:
+
+1. **`distribuicao_dataset.png`** - Distribuição das classes (1,5 pts)
+2. **`comparacao_algoritmos.png`** - Comparação de performance
+3. **`tabela_resultados.png`** - Tabela formatada
+4. **`radar_algoritmos.png`** - Análise multidimensional  
+5. **`heatmap_performance.png`** - Mapa de calor
+
+## 🎯 Estados de Jogo Detectados
+
+- ✅ **Tem jogo** - Partida em andamento
+- ⚠️ **Possibilidade de Fim de Jogo** - Situação crítica
+- 🤝 **Empate** - Jogo empatado
+- 🔵 **O vence** - Vitória do jogador O
+- ❌ **X vence** - Vitória do jogador X
+
+## 📝 Especificações Técnicas
+
+- **Dataset**: 500 amostras (250 positive + 250 negative)
+- **Divisão**: 60% treino, 20% validação, 20% teste
+- **Variáveis**: Todas terminam com `_$` conforme enunciado
+- **Métricas**: Acurácia, Precisão, Recall, F1-Score
+- **Frontend**: Análise em tempo real + relatórios automáticos
+
+## 🏆 Pontuação Estimada
+
+- **Dataset (1,5 pts)**: ✅ Gráfico + balanceamento documentado
+- **Algoritmos (4,0 pts)**: ✅ 4 algoritmos + comparação completa  
+- **Frontend (1,5 pts)**: ✅ Interface interativa + relatórios
+- **Apresentação (3,0 pts)**: 🎯 Dependente da apresentação
+
+**Total: 7,0/10,0 pontos + apresentação**
+
+## 📚 Documentação Adicional
+
+- **[TUTORIAL_EXECUCAO.md](TUTORIAL_EXECUCAO.md)** - Guia passo a passo completo
+- **[README_FRONTEND.md](README_FRONTEND.md)** - Documentação do jogo interativo
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Python 3.8+** - Linguagem principal
+- **scikit-learn** - Algoritmos de ML
+- **pandas/numpy** - Manipulação de dados
+- **matplotlib/seaborn** - Visualizações
+- **pickle** - Serialização de modelos
+
+## ⚠️ Observações
+
+- Arquivos `.pkl`, `dataset_balanceado_250.csv` e gráficos são **gerados automaticamente**
+- Execute os scripts na ordem indicada para melhores resultados
+- Frontend requer modelos treinados (execute `preparar_modelos.py` primeiro)
+
+---
+
+**🎓 Trabalho desenvolvido para PUCRS - Inteligência Artificial**  
+**📧 Dúvidas: Consulte documentação ou issues do GitHub**
 
 ## 🛠️ Configuração do Ambiente
 
