@@ -17,11 +17,11 @@ sys.path.append('./algoritmos')
 
 def preparar_dados():
     """Prepara os dados para treinamento"""
-    print("📊 Carregando dataset...")
+    print("Carregando dataset...")
 
     try:
         df_dados = pd.read_csv('dataset_balanceado_250.csv')
-        print(f"✅ Dataset carregado: {len(df_dados)} amostras")
+        print(f"Dataset carregado: {len(df_dados)} amostras")
 
         # Separa features e target
         feature_cols_lista = [col for col in df_dados.columns if col != 'class']
@@ -36,14 +36,14 @@ def preparar_dados():
                 X_features[col] = le_encoder.fit_transform(X_features[col])
                 label_encoders_dict[col] = le_encoder
 
-        print(f"📋 Features: {list(X_features.columns)}")
-        print(f"🎯 Classes: {y_target.unique()}")
-        print(f"📊 Distribuição: {y_target.value_counts().to_dict()}")
+        print(f"Features: {list(X_features.columns)}")
+        print(f"Classes: {y_target.unique()}")
+        print(f"Distribuição: {y_target.value_counts().to_dict()}")
 
         return X_features, y_target, label_encoders_dict
 
     except Exception as e:
-        print(f"❌ Erro ao carregar dados: {e}")
+        print(f"Erro ao carregar dados: {e}")
         return None, None, None
 
 def treinar_e_salvar_modelos():
@@ -51,7 +51,7 @@ def treinar_e_salvar_modelos():
     X_features, y_target, encoders_dict = preparar_dados()
 
     if X_features is None:
-        print("❌ Falha ao preparar dados!")
+        print("Falha ao preparar dados!")
         return
 
     # Divisão dos dados
@@ -59,9 +59,9 @@ def treinar_e_salvar_modelos():
         X_features, y_target, test_size=0.2, random_state=42, stratify=y_target
     )
 
-    print(f"\n🔄 Treinando modelos...")
-    print(f"📊 Treino: {len(X_treino)} amostras")
-    print(f"📊 Teste: {len(X_teste)} amostras")
+    print(f"\nTreinando modelos...")
+    print(f"Treino: {len(X_treino)} amostras")
+    print(f"Teste: {len(X_teste)} amostras")
 
     modelos_dict = {}
     resultados_dict = {}
@@ -151,7 +151,7 @@ def treinar_e_salvar_modelos():
         ]
 
         for nome_algo, funcao_treino in algoritmos_lista:
-            print(f"\n🤖 Treinando {nome_algo}...")
+            print(f"\nTreinando {nome_algo}...")
 
             try:
                 modelo_treinado, metricas_resultado = funcao_treino(X_treino, X_teste, y_treino, y_teste)
@@ -160,7 +160,7 @@ def treinar_e_salvar_modelos():
                 resultados_dict[nome_algo] = metricas_resultado
 
                 acuracia_valor = metricas_resultado.get('Acurácia Teste', 0)
-                print(f"✅ {nome_algo} treinado - Acurácia: {acuracia_valor:.2f}%")
+                print(f"{nome_algo} treinado - Acurácia: {acuracia_valor:.2f}%")
 
                 # Salva modelo individual
                 nome_arquivo_modelo = f"modelo_{nome_algo.lower().replace(' ', '_')}.pkl"
@@ -169,7 +169,7 @@ def treinar_e_salvar_modelos():
                 print(f"💾 Salvo: {nome_arquivo_modelo}")
 
             except Exception as e:
-                print(f"❌ Erro ao treinar {nome_algo}: {e}")
+                print(f"Erro ao treinar {nome_algo}: {e}")
 
         # Encontra o melhor modelo
         if resultados_dict:
@@ -179,8 +179,8 @@ def treinar_e_salvar_modelos():
             melhor_modelo = modelos_dict[melhor_algoritmo]
             melhor_acuracia = resultados_dict[melhor_algoritmo]['Acurácia Teste']
 
-            print(f"\n🏆 MELHOR MODELO: {melhor_algoritmo}")
-            print(f"📈 Acurácia: {melhor_acuracia:.2f}%")
+            print(f"\nMELHOR MODELO: {melhor_algoritmo}")
+            print(f"Acurácia: {melhor_acuracia:.2f}%")
 
             # Salva o melhor modelo
             with open('melhor_modelo.pkl', 'wb') as f:
@@ -197,23 +197,23 @@ def treinar_e_salvar_modelos():
             with open('info_melhor_modelo.pkl', 'wb') as f:
                 pickle.dump(info_modelo, f)
 
-            print("💾 Melhor modelo salvo como 'melhor_modelo.pkl'")
-            print("📋 Informações salvas em 'info_melhor_modelo.pkl'")
+            print("Melhor modelo salvo como 'melhor_modelo.pkl'")
+            print("Informações salvas em 'info_melhor_modelo.pkl'")
 
             return melhor_algoritmo, melhor_acuracia
         else:
-            print("❌ Nenhum modelo foi treinado com sucesso!")
+            print("Nenhum modelo foi treinado com sucesso!")
             return None, 0
 
     except ImportError as e:
-        print(f"❌ Erro ao importar algoritmos: {e}")
-        print("🔧 Verifique se o arquivo './algoritmos/utils.py' existe")
+        print(f"Erro ao importar algoritmos: {e}")
+        print("Verifique se o arquivo './algoritmos/utils.py' existe")
         return None, 0
 
 def testar_modelo_salvo():
     """Testa o modelo salvo"""
     try:
-        print(f"\n🧪 Testando modelo salvo...")
+        print(f"\nTestando modelo salvo...")
 
         # Carrega o melhor modelo
         with open('melhor_modelo.pkl', 'rb') as f:
@@ -223,8 +223,8 @@ def testar_modelo_salvo():
         with open('info_melhor_modelo.pkl', 'rb') as f:
             info_teste = pickle.load(f)
 
-        print(f"✅ Modelo carregado: {info_teste['algoritmo']}")
-        print(f"📈 Acurácia original: {info_teste['acuracia']:.2f}%")
+        print(f"Modelo carregado: {info_teste['algoritmo']}")
+        print(f"Acurácia original: {info_teste['acuracia']:.2f}%")
 
         # Teste com dados de exemplo
         X_features, y_target, _ = preparar_dados()
@@ -232,42 +232,42 @@ def testar_modelo_salvo():
             # Pega uma amostra aleatória para teste
             amostra_teste = X_features.iloc[0:1]
             predicao_teste = modelo_teste.predict(amostra_teste)
-            print(f"🔮 Teste de predição: {predicao_teste[0]}")
-            print("✅ Modelo funcionando corretamente!")
+            print(f"Teste de predição: {predicao_teste[0]}")
+            print("Modelo funcionando corretamente!")
 
             return True
 
     except Exception as e:
-        print(f"❌ Erro ao testar modelo: {e}")
+        print(f"Erro ao testar modelo: {e}")
         return False
 
 def main():
     """Função principal"""
-    print("🚀 PREPARANDO MODELOS PARA O FRONTEND")
+    print("PREPARANDO MODELOS PARA O FRONTEND")
     print("="*50)
 
     # Verifica se o dataset existe
     if not os.path.exists('dataset_balanceado_250.csv'):
-        print("❌ Arquivo 'dataset_balanceado_250.csv' não encontrado!")
-        print("🔧 Execute primeiro o script de balanceamento do dataset")
+        print("Arquivo 'dataset_balanceado_250.csv' não encontrado!")
+        print("Execute primeiro o script de balanceamento do dataset")
         return
 
     # Treina e salva modelos
     melhor_nome, acuracia_valor = treinar_e_salvar_modelos()
 
     if melhor_nome:
-        print(f"\n🎯 PREPARAÇÃO CONCLUÍDA!")
-        print(f"🏆 Melhor algoritmo: {melhor_nome}")
-        print(f"📈 Acurácia: {acuracia_valor:.2f}%")
+        print(f"\nPREPARAÇÃO CONCLUÍDA!")
+        print(f"Melhor algoritmo: {melhor_nome}")
+        print(f"Acurácia: {acuracia_valor:.2f}%")
 
         # Testa o modelo salvo
         if testar_modelo_salvo():
-            print(f"\n✅ FRONTEND PRONTO PARA USO!")
-            print(f"🎮 Execute: python frontend_jogo.py")
+            print(f"\nFRONTEND PRONTO PARA USO!")
+            print(f"Execute: python frontend_jogo_simples.py")
         else:
-            print(f"\n⚠️ Problema detectado no modelo salvo")
+            print(f"\nProblema detectado no modelo salvo")
     else:
-        print(f"\n❌ Falha na preparação dos modelos")
+        print(f"\nFalha na preparação dos modelos")
 
 if __name__ == "__main__":
     main()

@@ -17,19 +17,19 @@ def main():
 
     try:
         # Carregar dataset original
-        print("📂 Carregando dataset original...")
+        print("Carregando dataset original...")
         columns = ['top-left', 'top-middle', 'top-right', 'middle-left', 'middle-middle',
                    'middle-right', 'bottom-left', 'bottom-middle', 'bottom-right', 'class']
 
         df_original = pd.read_csv('tic-tac-toe.data', header=None, names=columns)
         distribuicao_original = df_original['class'].value_counts()
 
-        print(f"✅ Dataset original: {len(df_original)} amostras")
+        print(f"Dataset original: {len(df_original)} amostras")
         print(f"   positive: {distribuicao_original.get('positive', 0)}")
         print(f"   negative: {distribuicao_original.get('negative', 0)}")
 
         # Criar dataset balanceado com 250 amostras por classe
-        print("🔄 Criando dataset balanceado...")
+        print("Criando dataset balanceado...")
         max_samples = 250
 
         df_positive = df_original[df_original['class'] == 'positive'].sample(n=min(max_samples, len(df_original[df_original['class'] == 'positive'])), random_state=42)
@@ -40,12 +40,12 @@ def main():
 
         distribuicao_balanceada = df_balanceado['class'].value_counts()
 
-        print(f"✅ Dataset balanceado: {len(df_balanceado)} amostras")
+        print(f"Dataset balanceado: {len(df_balanceado)} amostras")
         print(f"   positive: {distribuicao_balanceada.get('positive', 0)}")
         print(f"   negative: {distribuicao_balanceada.get('negative', 0)}")
 
         # Criar gráfico
-        print("🎨 Gerando gráfico...")
+        print("Gerando gráfico...")
 
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
         fig.suptitle('Distribuição de Amostras por Classe - Dataset Tic-Tac-Toe', fontsize=16, fontweight='bold')
@@ -91,22 +91,22 @@ def main():
         plt.savefig(caminho, dpi=300, bbox_inches='tight')
         plt.close()
 
-        print(f"✅ Gráfico salvo em: {caminho}")
-        print("🎉 Pronto para usar no relatório!")
+        print(f"Gráfico salvo em: {caminho}")
+        print("Pronto para usar no relatório!")
 
         return True
 
     except Exception as e:
-        print(f"❌ Erro: {e}")
+        print(f"Erro: {e}")
         return False
 
 if __name__ == '__main__':
-    print("🎯 Gerador de Gráfico de Distribuição - T1-IA")
+    print("Gerador de Gráfico de Distribuição - T1-IA")
     print("=" * 50)
 
     success = main()
 
     if success:
-        print("\n✅ EXECUÇÃO CONCLUÍDA COM SUCESSO!")
+        print("\nEXECUÇÃO CONCLUÍDA COM SUCESSO!")
     else:
-        print("\n❌ Falha na execução. Verifique as dependências.")
+        print("\nFalha na execução. Verifique as dependências.")
