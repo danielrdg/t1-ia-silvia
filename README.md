@@ -33,6 +33,9 @@ python gerar_distribuicao.py
 # 4. Executar análise dos algoritmos (4,0 pts)
 python main.py
 
+# 5. Preparar o modelo que será usado no frontend
+python frontend_jogo_simples.py
+
 # 5. Testar frontend interativo (1,5 pts)
 python frontend_jogo_simples.py
 ```
