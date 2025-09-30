@@ -1,0 +1,25 @@
+# Ambiente virtual
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Arquivos gerados automaticamente
+*.pkl
+dataset_balanceado_250.csv
+relatorio_partida_*.txt
+
+# Gráficos (serão gerados novamente)
+results/graphs/*.png
+
+# Arquivos temporários
+.DS_Store
+*.tmp
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
