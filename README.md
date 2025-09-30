@@ -1,8 +1,6 @@
 # 🎮 T1-IA: Sistema de Inteligência Artificial para Jogo da Velha
 
-> **Trabalho T1 - Disciplina de Inteligência Artificial**  
-> **PUCRS - Faculdade de Informática**  
-> **Professora: Silvia Moraes**
+> **Trabalho T1 - Disciplina de Inteligência Artificial** > **PUCRS - Faculdade de Informática** > **Professora: Silvia Moraes**
 
 ## 📋 Sobre o Projeto
 
@@ -10,10 +8,10 @@ Sistema completo de IA que analisa estados de jogo da velha, implementando 4 alg
 
 ### 🎯 Objetivos Atendidos
 
-✅ **Dataset balanceado** (máx. 250 amostras/classe)  
-✅ **4 algoritmos implementados**: KNN, SVM, MLP, Decision Tree  
-✅ **Frontend interativo** com análise em tempo real  
-✅ **Gráficos e visualizações** profissionais  
+✅ **Dataset balanceado** (máx. 250 amostras/classe)
+✅ **4 algoritmos implementados**: KNN, SVM, MLP, Decision Tree
+✅ **Frontend interativo** com análise em tempo real
+✅ **Gráficos e visualizações** profissionais
 ✅ **Documentação completa** e tutoriais
 
 ## 🚀 Execução Rápida
@@ -41,12 +39,12 @@ python frontend_jogo_simples.py
 
 ## � Resultados Obtidos
 
-| Algoritmo | Acurácia (Teste) | F1-Score |
-|-----------|------------------|----------|
-| **SVM** ⭐ | **85,0%** | **0,8505** |
-| MLP | 84,0% | 0,8406 |
-| Decision Tree | 83,0% | 0,8306 |
-| KNN | 75,0% | 0,7496 |
+| Algoritmo     | Acurácia (Teste) | F1-Score   |
+| ------------- | ---------------- | ---------- |
+| **SVM** ⭐    | **85,0%**        | **0,8505** |
+| MLP           | 84,0%            | 0,8406     |
+| Decision Tree | 83,0%            | 0,8306     |
+| KNN           | 75,0%            | 0,7496     |
 
 **🏆 Melhor Modelo: Support Vector Machine (SVM)**
 
@@ -88,7 +86,7 @@ O projeto gera automaticamente 5 gráficos profissionais para relatório:
 1. **`distribuicao_dataset.png`** - Distribuição das classes (1,5 pts)
 2. **`comparacao_algoritmos.png`** - Comparação de performance
 3. **`tabela_resultados.png`** - Tabela formatada
-4. **`radar_algoritmos.png`** - Análise multidimensional  
+4. **`radar_algoritmos.png`** - Análise multidimensional
 5. **`heatmap_performance.png`** - Mapa de calor
 
 ## 🎯 Estados de Jogo Detectados
@@ -110,7 +108,7 @@ O projeto gera automaticamente 5 gráficos profissionais para relatório:
 ## 🏆 Pontuação Estimada
 
 - **Dataset (1,5 pts)**: ✅ Gráfico + balanceamento documentado
-- **Algoritmos (4,0 pts)**: ✅ 4 algoritmos + comparação completa  
+- **Algoritmos (4,0 pts)**: ✅ 4 algoritmos + comparação completa
 - **Frontend (1,5 pts)**: ✅ Interface interativa + relatórios
 - **Apresentação (3,0 pts)**: 🎯 Dependente da apresentação
 
@@ -137,7 +135,7 @@ O projeto gera automaticamente 5 gráficos profissionais para relatório:
 
 ---
 
-**🎓 Trabalho desenvolvido para PUCRS - Inteligência Artificial**  
+**🎓 Trabalho desenvolvido para PUCRS - Inteligência Artificial**
 **📧 Dúvidas: Consulte documentação ou issues do GitHub**
 
 ## 🛠️ Configuração do Ambiente
