@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-Script para preparar e salvar o melhor modelo para o frontend
-PUCRS - Inteligência Artificial - T1
-"""
-
 import pickle
 import pandas as pd
 import numpy as np
@@ -166,7 +160,7 @@ def treinar_e_salvar_modelos():
                 nome_arquivo_modelo = f"modelo_{nome_algo.lower().replace(' ', '_')}.pkl"
                 with open(nome_arquivo_modelo, 'wb') as f:
                     pickle.dump(modelo_treinado, f)
-                print(f"💾 Salvo: {nome_arquivo_modelo}")
+                print(f"Salvo: {nome_arquivo_modelo}")
 
             except Exception as e:
                 print(f"Erro ao treinar {nome_algo}: {e}")
