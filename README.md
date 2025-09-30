@@ -34,9 +34,9 @@ python gerar_distribuicao.py
 python main.py
 
 # 5. Preparar o modelo que será usado no frontend
-python frontend_jogo_simples.py
+python preparar_modelos.py
 
-# 5. Testar frontend interativo (1,5 pts)
+# 6. Testar frontend interativo (1,5 pts)
 python frontend_jogo_simples.py
 ```
 
