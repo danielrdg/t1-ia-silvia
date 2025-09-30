@@ -288,7 +288,7 @@ Multi-Layer Perceptron        0.8421  0.8417         0.8045   0.8045
 
 ## 📊 Visualizações e Gráficos
 
-O projeto agora gera automaticamente visualizações para facilitar a análise e inclusão em relatórios:
+O projeto gera automaticamente visualizações para facilitar a análise 
 
 ### 🎨 Gráficos Gerados
 
@@ -300,17 +300,7 @@ O projeto agora gera automaticamente visualizações para facilitar a análise e
 ### 📁 Localização
 
 - Todas as imagens são salvas em: `results/graphs/`
-- Alta resolução (300 DPI) para uso em relatórios acadêmicos
-- Formato PNG com fundo transparente quando aplicável
 
-### 🖼️ Como Usar nos Relatórios
-
-```bash
-# Gerar apenas visualizações (sem executar algoritmos novamente)
-python generate_graphs.py
-
-# As imagens estarão prontas em results/graphs/
-```
 
 ## 🎯 Bibliotecas de Visualização Usadas
 
@@ -325,26 +315,3 @@ python generate_graphs.py
 - Os dados categóricos são codificados numericamente usando LabelEncoder
 - A divisão é: 60% treino, 20% validação, 20% teste
 - Alguns algoritmos podem exibir warnings de convergência (normal para MLP)
-
-## 🐛 Resolução de Problemas
-
-### Erro de módulo não encontrado:
-
-```bash
-# Certifique-se de ativar o ambiente virtual
-source venv/bin/activate
-```
-
-### Erro de arquivo não encontrado:
-
-```bash
-# Execute do diretório raiz do projeto
-cd "/home/daniel.rodrigues/Área de trabalho/t1-IA"
-```
-
-### Problemas de dependências:
-
-```bash
-# Reinstalar dependências
-pip install --force-reinstall -r requirements.txt
-```
