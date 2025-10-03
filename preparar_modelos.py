@@ -203,7 +203,7 @@ def testar_modelo_salvo():
     try:
         print(f"\nTestando modelo salvo...")
 
-        # Carrega o melhor modelo
+        # carrega o melhor modelo
         with open('melhor_modelo.pkl', 'rb') as f:
             modelo_teste = pickle.load(f)
 
