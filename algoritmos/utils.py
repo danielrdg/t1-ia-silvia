@@ -9,29 +9,24 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 
 def divide_datasets(X, y):
-    """
-    Divide o dataset conforme especificado no enunciado:
-    Para cada classe de 250 amostras: 200 treino, 25 validação, 25 teste
-    """
     import pandas as pd
 
-    # Converter para DataFrame para facilitar manipulação
+    # converte para DataFrame para facilitar manipulação
     df = pd.DataFrame(X)
     df['class'] = y
 
-    # Listas para armazenar os conjuntos
+    # listas para armazenar os conjuntos
     train_dfs = []
     val_dfs = []
     test_dfs = []
 
-    # Para cada classe, dividir exatamente conforme especificado
     for classe in df['class'].unique():
         classe_data = df[df['class'] == classe].copy()
 
         # Embaralhar os dados da classe
         classe_data = classe_data.sample(frac=1, random_state=42).reset_index(drop=True)
 
-        # Dividir exatamente: 200 treino, 25 validação, 25 teste
+        # divide exatamente em 200 treino, 25 validação e 25 teste
         train_data = classe_data.iloc[:200]
         val_data = classe_data.iloc[200:225]
         test_data = classe_data.iloc[225:250]
@@ -40,12 +35,12 @@ def divide_datasets(X, y):
         val_dfs.append(val_data)
         test_dfs.append(test_data)
 
-    # Concatenar e embaralhar os conjuntos finais
+    # concatena e embaralha os conjuntos finais
     train_final = pd.concat(train_dfs).sample(frac=1, random_state=42).reset_index(drop=True)
     val_final = pd.concat(val_dfs).sample(frac=1, random_state=42).reset_index(drop=True)
     test_final = pd.concat(test_dfs).sample(frac=1, random_state=42).reset_index(drop=True)
 
-    # Separar features e target
+    # separar features e target
     X_train = train_final.drop('class', axis=1).values
     y_train = train_final['class'].values
     X_val = val_final.drop('class', axis=1).values
@@ -89,7 +84,7 @@ def execute_svm(X_train, y_train, X_val, y_val):
 def main():
     df = pd.read_csv('dataset_balanceado.csv')
 
-    # Codificar variáveis categóricas
+    # codifica variáveis categóricas
     le = LabelEncoder()
     for column in df.columns:
         if df[column].dtype == 'object':
