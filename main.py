@@ -194,7 +194,8 @@ def create_visualizations(results_df, save_path="results/graphs"):
     plt.title('🕸️ Análise Radar dos Algoritmos', size=16, fontweight='bold', pad=20)
     plt.tight_layout()
     plt.savefig(f"{save_path}/radar_algoritmos.png", dpi=300, bbox_inches='tight')
-    plt.close()    # ========== GRÁFICO 4: Heatmap de Performance ==========
+    plt.close()
+    # ========== GRÁFICO 4: Heatmap de Performance ==========
     fig, ax = plt.subplots(figsize=(10, 6))
 
     heatmap_data = results_df[['val_accuracy', 'val_f1', 'test_accuracy', 'test_f1']].T

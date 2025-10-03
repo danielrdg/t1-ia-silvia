@@ -23,7 +23,7 @@ def divide_datasets(X, y):
     for classe in df['class'].unique():
         classe_data = df[df['class'] == classe].copy()
 
-        # embaralha os dados da classe
+        # Embaralhar os dados da classe
         classe_data = classe_data.sample(frac=1, random_state=42).reset_index(drop=True)
 
         # divide exatamente em 200 treino, 25 validação e 25 teste
