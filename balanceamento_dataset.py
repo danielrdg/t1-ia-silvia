@@ -8,7 +8,7 @@ df = pd.read_csv('tic-tac-toe.data', header=None, names=columns)
 print("distribuicao original:")
 print(df['class'].value_counts())
 
-# Balanceamento com máximo 250 amostras por classe
+# balanceamento 250 amostras por classe(positiva e negativa)
 max_samples = 250
 
 dfPositive = df[df['class'] == 'positive'].sample(min(max_samples, len(df[df['class'] == 'positive'])), random_state=42)
