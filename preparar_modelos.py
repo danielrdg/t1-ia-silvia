@@ -6,23 +6,21 @@ from sklearn.preprocessing import LabelEncoder
 import sys
 import os
 
-# Adiciona o diretório dos algoritmos ao path
 sys.path.append('./algoritmos')
 
 def preparar_dados():
-    """Prepara os dados para treinamento"""
     print("Carregando dataset...")
 
     try:
         df_dados = pd.read_csv('dataset_balanceado_250.csv')
         print(f"Dataset carregado: {len(df_dados)} amostras")
 
-        # Separa features e target
+        # separa features e target
         feature_cols_lista = [col for col in df_dados.columns if col != 'class']
         X_features = df_dados[feature_cols_lista].copy()
         y_target = df_dados['class']
 
-        # Converte features categóricas para numéricas
+        # converte features categóricas para numéricas
         label_encoders_dict = {}
         for col in X_features.columns:
             if X_features[col].dtype == 'object':
@@ -41,14 +39,12 @@ def preparar_dados():
         return None, None, None
 
 def treinar_e_salvar_modelos():
-    """Treina e salva todos os modelos"""
     X_features, y_target, encoders_dict = preparar_dados()
 
     if X_features is None:
         print("Falha ao preparar dados!")
         return
 
-    # Divisão dos dados conforme o enunciado (80/10/10 por classe)
     from algoritmos.utils import divide_datasets
     X_treino, X_val, X_teste, y_treino, y_val, y_teste = divide_datasets(X_features, y_target)
 
@@ -59,7 +55,7 @@ def treinar_e_salvar_modelos():
     modelos_dict = {}
     resultados_dict = {}
 
-    # Importa as funções de treinamento
+    # funcoes de treinamento
     try:
         from sklearn.neighbors import KNeighborsClassifier
         from sklearn.svm import SVC
@@ -67,7 +63,6 @@ def treinar_e_salvar_modelos():
         from sklearn.tree import DecisionTreeClassifier
         from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-        # Define funções de treinamento que retornam modelo e métricas
         def treinar_knn_local(X_train, X_test, y_train, y_test):
             modelo = KNeighborsClassifier(n_neighbors=3)
             modelo.fit(X_train, y_train)
@@ -175,11 +170,11 @@ def treinar_e_salvar_modelos():
             print(f"\nMELHOR MODELO: {melhor_algoritmo}")
             print(f"Acurácia: {melhor_acuracia:.2f}%")
 
-            # Salva o melhor modelo
+            # salva o melhor modelo
             with open('melhor_modelo.pkl', 'wb') as f:
                 pickle.dump(melhor_modelo, f)
 
-            # Salva informações do melhor modelo
+            # salva as informações do melhor modelo
             info_modelo = {
                 'algoritmo': melhor_algoritmo,
                 'acuracia': melhor_acuracia,
@@ -204,25 +199,22 @@ def treinar_e_salvar_modelos():
         return None, 0
 
 def testar_modelo_salvo():
-    """Testa o modelo salvo"""
-    try:
+        try:
         print(f"\nTestando modelo salvo...")
 
-        # Carrega o melhor modelo
+
         with open('melhor_modelo.pkl', 'rb') as f:
             modelo_teste = pickle.load(f)
 
-        # Carrega informações
         with open('info_melhor_modelo.pkl', 'rb') as f:
             info_teste = pickle.load(f)
 
         print(f"Modelo carregado: {info_teste['algoritmo']}")
         print(f"Acurácia original: {info_teste['acuracia']:.2f}%")
 
-        # Teste com dados de exemplo
+        # teste com dados de exemplo
         X_features, y_target, _ = preparar_dados()
         if X_features is not None:
-            # Pega uma amostra aleatória para teste
             amostra_teste = X_features.iloc[0:1]
             predicao_teste = modelo_teste.predict(amostra_teste)
             print(f"Teste de predição: {predicao_teste[0]}")
@@ -235,17 +227,15 @@ def testar_modelo_salvo():
         return False
 
 def main():
-    """Função principal"""
     print("PREPARANDO MODELOS PARA O FRONTEND")
     print("="*50)
 
-    # Verifica se o dataset existe
     if not os.path.exists('dataset_balanceado_250.csv'):
         print("Arquivo 'dataset_balanceado_250.csv' não encontrado!")
         print("Execute primeiro o script de balanceamento do dataset")
         return
 
-    # Treina e salva modelos
+    # treina e salva modelos
     melhor_nome, acuracia_valor = treinar_e_salvar_modelos()
 
     if melhor_nome:
@@ -253,7 +243,7 @@ def main():
         print(f"Melhor algoritmo: {melhor_nome}")
         print(f"Acurácia: {acuracia_valor:.2f}%")
 
-        # Testa o modelo salvo
+        # testa o modelo salvo
         if testar_modelo_salvo():
             print(f"\nFRONTEND PRONTO PARA USO!")
             print(f"Execute: python frontend_jogo_simples.py")

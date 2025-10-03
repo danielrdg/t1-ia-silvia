@@ -1,22 +1,17 @@
-#!/usr/bin/env python3
-"""
-Script simplificado para gerar gráfico da distribuição de amostras por classe
-"""
 
 import pandas as pd
 import matplotlib
-matplotlib.use('Agg')  # Backend não-interativo
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 
 def main():
     print("Gerando gráfico da distribuição do dataset...")
 
-    # Criar diretório para salvar os gráficos
     os.makedirs('results/graphs', exist_ok=True)
 
     try:
-        # Carregar dataset original
+
         print("Carregando dataset original...")
         columns = ['top-left', 'top-middle', 'top-right', 'middle-left', 'middle-middle',
                    'middle-right', 'bottom-left', 'bottom-middle', 'bottom-right', 'class']
@@ -28,7 +23,7 @@ def main():
         print(f"   positive: {distribuicao_original.get('positive', 0)}")
         print(f"   negative: {distribuicao_original.get('negative', 0)}")
 
-        # Criar dataset balanceado com 250 amostras por classe
+        # cria dataset  com 250 amostras por classe
         print("Criando dataset balanceado...")
         max_samples = 250
 
@@ -44,13 +39,13 @@ def main():
         print(f"   positive: {distribuicao_balanceada.get('positive', 0)}")
         print(f"   negative: {distribuicao_balanceada.get('negative', 0)}")
 
-        # Criar gráfico
+        # gera o grafico
         print("Gerando gráfico...")
 
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
         fig.suptitle('Distribuição de Amostras por Classe - Dataset Tic-Tac-Toe', fontsize=16, fontweight='bold')
 
-        # Gráfico 1: Original
+        # grafico 1: original
         classes_orig = distribuicao_original.index.tolist()
         counts_orig = distribuicao_original.values.tolist()
 
@@ -67,7 +62,7 @@ def main():
                     f'{count}\n({percentage:.1f}%)',
                     ha='center', va='bottom', fontweight='bold')
 
-        # Gráfico 2: Balanceado
+        # grafico 2: balanceado
         classes_bal = distribuicao_balanceada.index.tolist()
         counts_bal = distribuicao_balanceada.values.tolist()
 
@@ -86,7 +81,6 @@ def main():
 
         plt.tight_layout()
 
-        # Salvar gráfico
         caminho = 'results/graphs/distribuicao_dataset.png'
         plt.savefig(caminho, dpi=300, bbox_inches='tight')
         plt.close()

@@ -1,16 +1,3 @@
-#!/usr/bin/env python3
-"""
-Projeto T1-IA: Jogo da Velha com Inteligência Artificial
-Este projeto analisa dados de final de jogo de jogo da velha usando diferentes algoritmos de machine learning.
-
-Como usar:
-1. python main.py - Executa todos os algoritmos e compara resultados
-2. python main.py --algorithm knn - Executa apenas o algoritmo especificado
-3. python main.py --help - Mostra esta ajuda
-
-Algoritmos disponíveis: knn, svm, mlp, decision-tree
-"""
-
 import argparse
 import pandas as pd
 import numpy as np
@@ -21,10 +8,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
 
-# Suprimir warnings do matplotlib e sklearn
 warnings.filterwarnings('ignore')
 
-# Adiciona o diretório algorithms ao path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'algoritmos'))
 
 from utils import divide_datasets, calculate_metrics, execute_knn, execute_mlp, execute_decision_tree, execute_svm
@@ -32,7 +17,7 @@ from utils import divide_datasets, calculate_metrics, execute_knn, execute_mlp, 
 def load_and_prepare_data():
     print("Carregando dataset balanceado...")
 
-    # Verificar se existe dataset com 250 amostras, senão criar
+    # verificar se o dataset balanceado existe
     if not os.path.exists('dataset_balanceado_250.csv'):
         print("Criando dataset balanceado com  250 amostras por classe")
         columns = ['top-left', 'top-middle', 'top-right', 'middle-left', 'middle-middle',
@@ -46,7 +31,7 @@ def load_and_prepare_data():
 
         dfBalanceado_temp = pd.concat([dfPositive, dfNegative]).sample(frac=1).reset_index(drop=True)
         dfBalanceado_temp.to_csv('dataset_balanceado_250.csv', index=False)
-        print("✅ Dataset balanceado criado!")
+        print("Dataset balanceado criado!")
 
     df = pd.read_csv('dataset_balanceado_250.csv')
 
@@ -68,22 +53,17 @@ def load_and_prepare_data():
     return X, y
 
 def create_visualizations(results_df, save_path="results/graphs"):
-    """Gera e salva visualizações dos resultados"""
-
-    # Configurar estilo
     plt.style.use('default')
     sns.set_palette("husl")
 
-    # Criar diretório se não existir
     os.makedirs(save_path, exist_ok=True)
 
-    print(f"\n📊 Gerando visualizações em {save_path}/...")
+    print(f"\nGerando visualizações em {save_path}/...")
 
-    # ========== GRÁFICO 1: Comparação de Acurácia (Matplotlib + Seaborn) ==========
+    # ========== GRÁFICO 1: Comparação de Acurácia ==========
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
-    fig.suptitle('🎯 Comparação de Performance dos Algoritmos', fontsize=16, fontweight='bold')
+    fig.suptitle('Comparação de Performance dos Algoritmos', fontsize=16, fontweight='bold')
 
-    # Subplot 1: Barras agrupadas
     x = np.arange(len(results_df))
     width = 0.35
 
@@ -101,7 +81,6 @@ def create_visualizations(results_df, save_path="results/graphs"):
     ax1.grid(True, alpha=0.3)
     ax1.set_ylim(0.6, 1.0)
 
-    # Adicionar valores nas barras
     for bar in bars1:
         height = bar.get_height()
         ax1.text(bar.get_x() + bar.get_width()/2., height + 0.01,
@@ -111,7 +90,6 @@ def create_visualizations(results_df, save_path="results/graphs"):
         ax1.text(bar.get_x() + bar.get_width()/2., height + 0.01,
                 f'{height:.3f}', ha='center', va='bottom', fontsize=9)
 
-    # Subplot 2: F1-Score
     bars3 = ax2.bar(x - width/2, results_df['val_f1'], width,
                    label='Validação', alpha=0.8, color='green')
     bars4 = ax2.bar(x + width/2, results_df['test_f1'], width,
@@ -126,7 +104,6 @@ def create_visualizations(results_df, save_path="results/graphs"):
     ax2.grid(True, alpha=0.3)
     ax2.set_ylim(0.6, 1.0)
 
-    # Adicionar valores nas barras
     for bar in bars3:
         height = bar.get_height()
         ax2.text(bar.get_x() + bar.get_width()/2., height + 0.01,
@@ -145,7 +122,6 @@ def create_visualizations(results_df, save_path="results/graphs"):
     ax.axis('tight')
     ax.axis('off')
 
-    # Preparar dados da tabela com formatação
     table_data = []
     for _, row in results_df.iterrows():
         table_data.append([
@@ -159,18 +135,15 @@ def create_visualizations(results_df, save_path="results/graphs"):
     headers = ['Algoritmo', 'Acurácia\n(Validação)', 'F1-Score\n(Validação)',
                'Acurácia\n(Teste)', 'F1-Score\n(Teste)']
 
-    # Criar tabela
     table = ax.table(cellText=table_data, colLabels=headers, loc='center', cellLoc='center')
     table.auto_set_font_size(False)
     table.set_fontsize(12)
     table.scale(1.2, 2)
 
-    # Estilizar tabela
     for i in range(len(headers)):
         table[(0, i)].set_facecolor('#4472C4')
         table[(0, i)].set_text_props(weight='bold', color='white')
 
-    # Colorir linhas alternadas
     for i in range(1, len(table_data) + 1):
         for j in range(len(headers)):
             if i % 2 == 0:
@@ -178,30 +151,26 @@ def create_visualizations(results_df, save_path="results/graphs"):
             else:
                 table[(i, j)].set_facecolor('#F8F9FA')
 
-    # Destacar melhores valores
     best_val_acc_idx = results_df['val_accuracy'].idxmax() + 1
     best_test_acc_idx = results_df['test_accuracy'].idxmax() + 1
 
-    table[(best_val_acc_idx, 1)].set_facecolor('#90EE90')  # Verde claro
-    table[(best_test_acc_idx, 3)].set_facecolor('#90EE90')  # Verde claro
+    table[(best_val_acc_idx, 1)].set_facecolor('#90EE90')
+    table[(best_test_acc_idx, 3)].set_facecolor('#90EE90')
 
     plt.title('Tabela Comparativa dos Algoritmos de IA',
               fontsize=16, fontweight='bold', pad=20)
     plt.savefig(f"{save_path}/tabela_resultados.png", dpi=300, bbox_inches='tight')
     plt.close()
 
-    # ========== GRÁFICO 3: Gráfico Radar (Matplotlib) ==========
-    # Usando matplotlib ao invés do Plotly para melhor compatibilidade
+    # ========== GRÁFICO 3: Gráfico Radar ==========
     fig, ax = plt.subplots(figsize=(10, 8), subplot_kw=dict(projection='polar'))
 
-    # Categorias para o radar
     categories = ['Acurácia\nValidação', 'F1-Score\nValidação',
                   'Acurácia\nTeste', 'F1-Score\nTeste']
     N = len(categories)
 
-    # Ângulos para cada categoria
     angles = [n / float(N) * 2 * np.pi for n in range(N)]
-    angles += angles[:1]  # Completar o círculo
+    angles += angles[:1]
 
     colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4']
 
@@ -214,7 +183,6 @@ def create_visualizations(results_df, save_path="results/graphs"):
                 label=row['algoritmo'], color=colors[i % len(colors)])
         ax.fill(angles, values, alpha=0.25, color=colors[i % len(colors)])
 
-    # Configurar o gráfico radar
     ax.set_xticks(angles[:-1])
     ax.set_xticklabels(categories)
     ax.set_ylim(0.6, 1.0)
@@ -229,19 +197,16 @@ def create_visualizations(results_df, save_path="results/graphs"):
     plt.close()    # ========== GRÁFICO 4: Heatmap de Performance ==========
     fig, ax = plt.subplots(figsize=(10, 6))
 
-    # Preparar dados para heatmap
     heatmap_data = results_df[['val_accuracy', 'val_f1', 'test_accuracy', 'test_f1']].T
     heatmap_data.columns = results_df['algoritmo']
 
-    # Criar heatmap
     sns.heatmap(heatmap_data, annot=True, fmt='.4f', cmap='RdYlGn',
                 center=0.8, ax=ax, cbar_kws={'label': 'Performance'})
 
-    ax.set_title('🔥 Heatmap de Performance dos Algoritmos', fontsize=14, fontweight='bold')
+    ax.set_title('Heatmap de Performance dos Algoritmos', fontsize=14, fontweight='bold')
     ax.set_ylabel('Métricas', fontweight='bold')
     ax.set_xlabel('Algoritmos', fontweight='bold')
 
-    # Renomear labels do eixo Y
     ax.set_yticklabels(['Acurácia (Val)', 'F1-Score (Val)', 'Acurácia (Test)', 'F1-Score (Test)'])
 
     plt.tight_layout()
@@ -262,13 +227,13 @@ def create_visualizations(results_df, save_path="results/graphs"):
     ]
 
 def run_algorithm(name, func, X_train, y_train, X_val, y_val, X_test, y_test):
-    """Executa um algoritmo específico e retorna os resultados"""
+    """executa um algoritmo e retorna os resultados"""
     print(f"\nExecutando {name}...")
 
-    # Validação
+    # validacao
     val_accuracy, val_precision, val_recall, val_f1 = func(X_train, y_train, X_val, y_val)
 
-    # Teste
+    # teste
     test_accuracy, test_precision, test_recall, test_f1 = func(X_train, y_train, X_test, y_test)
 
     print(f"Resultados {name}:")
@@ -293,7 +258,6 @@ def main():
     print("Projeto T1-IA: Análise de Jogo da Velha com IA")
     print("=" * 50)
 
-    # Carregar e preparar dados
     X, y = load_and_prepare_data()
 
     # Dividir datasets
@@ -301,7 +265,6 @@ def main():
     X_train, X_val, X_test, y_train, y_val, y_test = divide_datasets(X, y)
     print(f"   Treino: {len(X_train)} | Validação: {len(X_val)} | Teste: {len(X_test)}")
 
-    # Definir algoritmos
     algorithms = {
         'knn': ('K-Nearest Neighbors', execute_knn),
         'svm': ('Support Vector Machine', execute_svm),
@@ -309,7 +272,6 @@ def main():
         'decision-tree': ('Árvore de Decisão', execute_decision_tree)
     }
 
-    # Executar algoritmos
     results = []
 
     if args.algorithm == 'all':
@@ -332,28 +294,25 @@ def main():
             print(f"Algoritmo '{args.algorithm}' não encontrado!")
             return
 
-    # Mostrar resumo
     if results:
         print("\nRESUMO DOS RESULTADOS")
         print("=" * 50)
         df_results = pd.DataFrame(results)
         print(df_results.to_string(index=False, float_format='%.4f'))
 
-        # Melhor algoritmo
+        # melhor algoritmo
         best_val = df_results.loc[df_results['val_accuracy'].idxmax()]
         best_test = df_results.loc[df_results['test_accuracy'].idxmax()]
 
         print(f"\nMelhor na validação: {best_val['algoritmo']} ({best_val['val_accuracy']:.4f})")
         print(f"Melhor no teste: {best_test['algoritmo']} ({best_test['test_accuracy']:.4f})")
 
-        # Gerar visualizações
+        # gera as visualizações
         try:
             print("\nGerando visualizações...")
             image_paths = create_visualizations(df_results)
 
             print(f"\nImagens geradas para relatório:")
-            for path in image_paths:
-                print(f"   ✅ {path}")
 
         except Exception as e:
             print(f"Erro ao gerar visualizações: {e}")
