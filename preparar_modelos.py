@@ -199,10 +199,11 @@ def treinar_e_salvar_modelos():
         return None, 0
 
 def testar_modelo_salvo():
-        try:
+    """Testa o modelo salvo"""
+    try:
         print(f"\nTestando modelo salvo...")
 
-
+        # Carrega o melhor modelo
         with open('melhor_modelo.pkl', 'rb') as f:
             modelo_teste = pickle.load(f)
 
